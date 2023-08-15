@@ -1,13 +1,15 @@
 package com.elifintizam.BillPaymentSystem;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table
+@Table(name = "member_account")
 public class MemberAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,15 +19,7 @@ public class MemberAccount {
     private String lastName;
     private double balance;
 
-    public MemberAccount(String memberCode, String firstName, String lastName, double balance) {
-        this.memberCode = memberCode;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.balance = balance;
-        //setMemberCode(this.id,this.firstName);
+    public void setMemberCode(int id, String firstName) {
+        this.memberCode =  id + firstName.substring(0,2);
     }
-
-    /*public void setMemberCode(int id, String firstName) {
-        this.memberCode = String.valueOf(id) + firstName.substring(0,2);
-    }*/
 }
