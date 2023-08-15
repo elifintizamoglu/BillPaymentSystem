@@ -1,31 +1,31 @@
 package com.elifintizam.BillPaymentSystem;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "member_account")
+@Table
 public class MemberAccount {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(name = "member_code")
     private String memberCode;
-
-    @Column(name = "first_name")
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "balance")
     private double balance;
 
+    public MemberAccount(String memberCode, String firstName, String lastName, double balance) {
+        this.memberCode = memberCode;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.balance = balance;
+        //setMemberCode(this.id,this.firstName);
+    }
+
+    /*public void setMemberCode(int id, String firstName) {
+        this.memberCode = String.valueOf(id) + firstName.substring(0,2);
+    }*/
 }

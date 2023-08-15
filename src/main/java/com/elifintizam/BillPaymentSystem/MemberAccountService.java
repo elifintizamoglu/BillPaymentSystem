@@ -17,4 +17,8 @@ public class MemberAccountService {
     public List<MemberAccount> getMembers(){
         return memberAccountRepository.findAll();
     }
+
+    public void postMember(MemberAccount memberAccount) {
+        memberAccountRepository.save(memberAccount);
+    }
 }
