@@ -1,6 +1,7 @@
-package com.elifintizam.BillPaymentSystem;
+package com.elifintizam.BillPaymentSystem.controller;
 
 import com.elifintizam.BillPaymentSystem.model.Bill;
+import com.elifintizam.BillPaymentSystem.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

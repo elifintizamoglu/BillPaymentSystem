@@ -1,6 +1,7 @@
-package com.elifintizam.BillPaymentSystem;
+package com.elifintizam.BillPaymentSystem.service;
 
 import com.elifintizam.BillPaymentSystem.model.MemberAccount;
+import com.elifintizam.BillPaymentSystem.repository.MemberAccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

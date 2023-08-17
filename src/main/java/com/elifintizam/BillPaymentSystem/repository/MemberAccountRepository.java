@@ -1,4 +1,4 @@
-package com.elifintizam.BillPaymentSystem;
+package com.elifintizam.BillPaymentSystem.repository;
 
 import com.elifintizam.BillPaymentSystem.model.MemberAccount;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.elifintizam.BillPaymentSystem;
+package com.elifintizam.BillPaymentSystem.exception;
 
 public class InsufficientBalanceException extends RuntimeException{
     public InsufficientBalanceException(String message) {
