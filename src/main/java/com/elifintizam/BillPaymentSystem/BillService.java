@@ -1,6 +1,6 @@
 package com.elifintizam.BillPaymentSystem;
 
-import com.elifintizam.BillPaymentSystem.Model.Bill;
+import com.elifintizam.BillPaymentSystem.model.Bill;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,10 +23,7 @@ public class BillService {
     }
 
     public void postBill(Bill bill) {
-        //billRepository.findById(bill.getMemberAccount().getId());
-
         billRepository.save(bill);
-        System.out.println(bill.getMemberAccount()+" /// "+ bill.getMemberAccount().getFirstName());
     }
 
     public void deleteBill(int billId) {
@@ -55,5 +52,23 @@ public class BillService {
                 !billType.equals(bill.getBillType())) {
             bill.setBillType(billType);
         }
+    }
+
+    @Transactional
+    public void payBill(int billId) {
+        Bill bill = billRepository.findById(billId).orElseThrow(() ->
+                new IllegalStateException("Bill with id " + billId + " does not exist."));
+        if (bill.getMemberAccount().getBalance() >= bill.getAmount()) {
+            bill.getMemberAccount().setBalance(bill.getMemberAccount().getBalance() - bill.getAmount());
+            bill.setAmount(0);
+        }
+        else {
+            throw new InsufficientBalanceException("Balance of the member with id "+ bill.getMemberAccount().getMemberId() + " is not enough to pay the bill with id " + bill.getBillId());
+        }
+    }
+
+    public Bill getBill(int billId) {
+        return billRepository.findById(billId).orElseThrow(() ->
+                new IllegalStateException("Bill with id " + billId + " does not exist."));
     }
 }

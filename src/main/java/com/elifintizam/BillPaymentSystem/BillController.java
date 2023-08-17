@@ -1,6 +1,6 @@
 package com.elifintizam.BillPaymentSystem;
 
-import com.elifintizam.BillPaymentSystem.Model.Bill;
+import com.elifintizam.BillPaymentSystem.model.Bill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +39,15 @@ public class BillController {
                            @RequestParam(required = false) Date processDate,
                            @RequestParam(required = false) String billType){
         billService.updateBill(billId,amount,processDate,billType);
+    }
+
+    @PutMapping(path = "/pay/{billId}")
+    public void payBill(@PathVariable("billId") int billId){
+        billService.payBill(billId);
+    }
+
+    @GetMapping(path = "/get/{billId}")
+    public Bill getBill(@PathVariable("billId") int billId){
+        return billService.getBill(billId);
     }
 }
