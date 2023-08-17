@@ -1,4 +1,4 @@
-package com.elifintizam.BillPaymentSystem.Model;
+package com.elifintizam.BillPaymentSystem.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
