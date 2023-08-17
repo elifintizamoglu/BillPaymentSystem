@@ -13,13 +13,8 @@ import lombok.NoArgsConstructor;
 public class MemberAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String memberCode;
+    private int memberId;
     private String firstName;
     private String lastName;
     private double balance;
-
-    public void setMemberCode(int id, String firstName) {
-        this.memberCode =  id + firstName.substring(0,2);
-    }
 }

@@ -24,8 +24,6 @@ public class MemberAccountService {
 
     public void postMember(MemberAccount memberAccount) {
         memberAccountRepository.save(memberAccount);
-        memberAccount.setMemberCode(memberAccount.getId(), memberAccount.getFirstName());
-        memberAccountRepository.save(memberAccount);
     }
 
     public void deleteMember(int memberId) {
@@ -34,6 +32,7 @@ public class MemberAccountService {
             throw new IllegalStateException("Member with id " + memberId + " does not exist.");
         }
         memberAccountRepository.deleteById(memberId);
+
     }
 
     @Transactional
