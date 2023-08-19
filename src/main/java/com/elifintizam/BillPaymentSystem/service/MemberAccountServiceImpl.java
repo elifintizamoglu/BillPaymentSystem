@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class MemberAccountService {
+public class MemberAccountServiceImpl implements IMemberAccountService{
 
     private final MemberAccountRepository memberAccountRepository;
 
     @Autowired
-    public MemberAccountService(MemberAccountRepository memberAccountRepository) {
+    public MemberAccountServiceImpl(MemberAccountRepository memberAccountRepository) {
         this.memberAccountRepository = memberAccountRepository;
     }
 

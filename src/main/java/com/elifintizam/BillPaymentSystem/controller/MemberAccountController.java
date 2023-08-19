@@ -1,7 +1,7 @@
 package com.elifintizam.BillPaymentSystem.controller;
 
 import com.elifintizam.BillPaymentSystem.model.MemberAccount;
-import com.elifintizam.BillPaymentSystem.service.MemberAccountService;
+import com.elifintizam.BillPaymentSystem.service.MemberAccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,26 +11,26 @@ import java.util.List;
 @RequestMapping(path = "api/v1/memberAccount")
 public class MemberAccountController {
 
-    private final MemberAccountService memberAccountService;
+    private final MemberAccountServiceImpl memberAccountServiceImpl;
 
     @Autowired
-    public MemberAccountController(MemberAccountService memberAccountService) {
-        this.memberAccountService = memberAccountService;
+    public MemberAccountController(MemberAccountServiceImpl memberAccountServiceImpl) {
+        this.memberAccountServiceImpl = memberAccountServiceImpl;
     }
 
     @GetMapping
     public List<MemberAccount> getMembers() {
-        return memberAccountService.getMembers();
+        return memberAccountServiceImpl.getMembers();
     }
 
     @PostMapping
     public void postMember(@RequestBody MemberAccount memberAccount) {
-        memberAccountService.postMember(memberAccount);
+        memberAccountServiceImpl.postMember(memberAccount);
     }
 
     @DeleteMapping(path = "{memberId}")
     public void deleteMember(@PathVariable("memberId") int memberId) {
-        memberAccountService.deleteMember(memberId);
+        memberAccountServiceImpl.deleteMember(memberId);
     }
 
     @PutMapping(path = "{memberId}")
@@ -38,7 +38,7 @@ public class MemberAccountController {
                              @RequestParam(required = false) String firstName,
                              @RequestParam(required = false) String lastName,
                              @RequestParam(required = false) Double balance) {
-        memberAccountService.updateMember(memberId, firstName, lastName, balance);
+        memberAccountServiceImpl.updateMember(memberId, firstName, lastName, balance);
     }
 
 
