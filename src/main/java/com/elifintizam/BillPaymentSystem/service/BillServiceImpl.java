@@ -4,17 +4,20 @@ import com.elifintizam.BillPaymentSystem.exception.InsufficientBalanceException;
 import com.elifintizam.BillPaymentSystem.exception.WrongBillTypeException;
 import com.elifintizam.BillPaymentSystem.model.Bill;
 import com.elifintizam.BillPaymentSystem.repository.BillRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
-public class BillService {
+@Service
+public class BillServiceImpl implements IBillService {
 
     private final BillRepository billRepository;
 
     @Autowired
-    public BillService(BillRepository billRepository) {
+    public BillServiceImpl(BillRepository billRepository) {
         this.billRepository = billRepository;
     }
 
@@ -34,6 +37,7 @@ public class BillService {
         billRepository.deleteById(billId);
     }
 
+    @Transactional
     public void updateBill(int billId, Double amount, Date processDate, String billType) {
         Bill bill = billRepository.findById(billId).orElseThrow(() ->
                 new IllegalStateException("Bill with id " + billId + " does not exist."));
@@ -68,6 +72,7 @@ public class BillService {
         return billAmount + (billAmount * taxAmount);
     }
 
+    @Transactional
     public void payBill(int billId, String billType) {
         Bill bill = billRepository.findById(billId).orElseThrow(() ->
                 new IllegalStateException("Bill with id " + billId + " does not exist."));
@@ -88,6 +93,7 @@ public class BillService {
         }
     }
 
+    @Transactional
     public void cancelPayment(int billId, String billType) {
         Bill bill = billRepository.findById(billId).orElseThrow(() ->
                 new IllegalStateException("Bill with id " + billId + " does not exist."));
