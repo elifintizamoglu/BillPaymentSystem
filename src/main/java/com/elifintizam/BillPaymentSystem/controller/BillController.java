@@ -20,17 +20,17 @@ public class BillController {
     }
 
     @GetMapping
-    public List<Bill> getBills(){
+    public List<Bill> getBills() {
         return client.getBills();
     }
 
     @PostMapping
-    public void postBill(@RequestBody Bill bill){
+    public void postBill(@RequestBody Bill bill) {
         client.postBill(bill);
     }
 
     @DeleteMapping(path = "{billId}")
-    public void deleteBill(@PathVariable("billId") int billId){
+    public void deleteBill(@PathVariable("billId") int billId) {
         client.deleteBill(billId);
     }
 
@@ -38,18 +38,24 @@ public class BillController {
     public void updateBill(@PathVariable("billId") int billId,
                            @RequestParam(required = false) Double amount,
                            @RequestParam(required = false) Date processDate,
-                           @RequestParam(required = false) String billType){
-        client.updateBill(billId,amount,processDate,billType);
+                           @RequestParam(required = false) String billType) {
+        client.updateBill(billId, amount, processDate, billType);
     }
 
     @PutMapping(path = "/pay/{billId}")
     public void payBill(@PathVariable("billId") int billId,
-                        @RequestParam String billType){
-        client.payBill(billId,billType);
+                        @RequestParam String billType) {
+        client.payBill(billId, billType);
+    }
+
+    @PutMapping(path = "/pay/cancel/{billId}")
+    public void cancelPayment(@PathVariable("billId") int billId,
+                              @RequestParam String billType) {
+        client.cancelPayment(billId, billType);
     }
 
     @GetMapping(path = "/get/{billId}")
-    public Bill getBill(@PathVariable("billId") int billId){
+    public Bill getBill(@PathVariable("billId") int billId) {
         return client.getBill(billId);
     }
 }

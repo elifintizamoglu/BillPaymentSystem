@@ -1,6 +1,5 @@
 package com.elifintizam.BillPaymentSystem;
 
-import com.elifintizam.BillPaymentSystem.exception.WrongBillTypeException;
 import com.elifintizam.BillPaymentSystem.model.Bill;
 import com.elifintizam.BillPaymentSystem.repository.BillRepository;
 import com.elifintizam.BillPaymentSystem.service.BillService;
@@ -31,20 +30,22 @@ public class Client extends BillService {
 
     @Transactional
     public void updateBill(int billId, Double amount, Date processDate, String billType) {
-        super.updateBill(billId,amount,processDate,billType);
+        super.updateBill(billId, amount, processDate, billType);
     }
 
     @Transactional
     public void payBill(int billId, String billType) {
-        switch (billType) {
-            case "Phone" -> super.payPhoneBill(billId);
-            case "Internet" -> super.payInternetBill(billId);
-            case "Water" -> super.payWaterBill(billId);
-            default -> throw new WrongBillTypeException("Bill type is wrong or empty!");
-        }
+        super.payBill(billId, billType);
+    }
+
+    @Transactional
+    public void cancelPayment(int billId, String billType) {
+        super.cancelPayment(billId, billType);
     }
 
     public Bill getBill(int billId) {
         return super.getBill(billId);
     }
+
+
 }

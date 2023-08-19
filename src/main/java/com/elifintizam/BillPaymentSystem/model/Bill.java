@@ -21,8 +21,10 @@ public class Bill {
     private double amount;
     private Date processDate;
     private String billType;
+    private boolean isPayed;
     @ManyToOne
     @JoinColumn(name = "member_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MemberAccount memberAccount;
+
 }
