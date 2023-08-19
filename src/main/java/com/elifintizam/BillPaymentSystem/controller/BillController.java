@@ -1,7 +1,7 @@
 package com.elifintizam.BillPaymentSystem.controller;
 
+import com.elifintizam.BillPaymentSystem.Client;
 import com.elifintizam.BillPaymentSystem.model.Bill;
-import com.elifintizam.BillPaymentSystem.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,26 +12,26 @@ import java.util.List;
 @RequestMapping(path = "api/v1/bill")
 public class BillController {
 
-    private final BillService billService;
+    private final Client client;
 
     @Autowired
-    public BillController(BillService billService) {
-        this.billService = billService;
+    public BillController(Client client) {
+        this.client = client;
     }
 
     @GetMapping
     public List<Bill> getBills(){
-        return billService.getBills();
+        return client.getBills();
     }
 
     @PostMapping
     public void postBill(@RequestBody Bill bill){
-        billService.postBill(bill);
+        client.postBill(bill);
     }
 
     @DeleteMapping(path = "{billId}")
     public void deleteBill(@PathVariable("billId") int billId){
-        billService.deleteBill(billId);
+        client.deleteBill(billId);
     }
 
     @PutMapping(path = "{billId}")
@@ -39,16 +39,17 @@ public class BillController {
                            @RequestParam(required = false) Double amount,
                            @RequestParam(required = false) Date processDate,
                            @RequestParam(required = false) String billType){
-        billService.updateBill(billId,amount,processDate,billType);
+        client.updateBill(billId,amount,processDate,billType);
     }
 
     @PutMapping(path = "/pay/{billId}")
-    public void payBill(@PathVariable("billId") int billId){
-        billService.payBill(billId);
+    public void payBill(@PathVariable("billId") int billId,
+                        @RequestParam String billType){
+        client.payBill(billId,billType);
     }
 
     @GetMapping(path = "/get/{billId}")
     public Bill getBill(@PathVariable("billId") int billId){
-        return billService.getBill(billId);
+        return client.getBill(billId);
     }
 }

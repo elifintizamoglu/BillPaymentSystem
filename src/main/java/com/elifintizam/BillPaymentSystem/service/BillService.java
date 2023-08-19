@@ -3,14 +3,11 @@ package com.elifintizam.BillPaymentSystem.service;
 import com.elifintizam.BillPaymentSystem.exception.InsufficientBalanceException;
 import com.elifintizam.BillPaymentSystem.model.Bill;
 import com.elifintizam.BillPaymentSystem.repository.BillRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
-@Service
 public class BillService {
 
     private final BillRepository billRepository;
@@ -36,7 +33,6 @@ public class BillService {
         billRepository.deleteById(billId);
     }
 
-    @Transactional
     public void updateBill(int billId, Double amount, Date processDate, String billType) {
         Bill bill = billRepository.findById(billId).orElseThrow(() ->
                 new IllegalStateException("Bill with id " + billId + " does not exist."));
@@ -56,12 +52,29 @@ public class BillService {
         }
     }
 
-    @Transactional
-    public void payBill(int billId) {
+    public Bill getBill(int billId) {
+        return billRepository.findById(billId).orElseThrow(() ->
+                new IllegalStateException("Bill with id " + billId + " does not exist."));
+    }
+
+    public void payPhoneBill(int billId) {
+        payBill(billId, 0.05);
+    }
+
+    public void payInternetBill(int billId) {
+        payBill(billId, 0.08);
+    }
+
+    public void payWaterBill(int billId) {
+        payBill(billId, 0.03);
+    }
+
+    private void payBill(int billId, double taxAmount) {
         Bill bill = billRepository.findById(billId).orElseThrow(() ->
                 new IllegalStateException("Bill with id " + billId + " does not exist."));
-        if (bill.getMemberAccount().getBalance() >= bill.getAmount()) {
-            bill.getMemberAccount().setBalance(bill.getMemberAccount().getBalance() - bill.getAmount());
+        double totalAmount = bill.getAmount() + (bill.getAmount() * taxAmount);
+        if (bill.getMemberAccount().getBalance() >= totalAmount) {
+            bill.getMemberAccount().setBalance(bill.getMemberAccount().getBalance() - totalAmount);
             bill.setAmount(0);
         }
         else {
@@ -69,8 +82,5 @@ public class BillService {
         }
     }
 
-    public Bill getBill(int billId) {
-        return billRepository.findById(billId).orElseThrow(() ->
-                new IllegalStateException("Bill with id " + billId + " does not exist."));
-    }
+
 }
