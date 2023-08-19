@@ -1,4 +1,4 @@
-package com.elifintizam.BillPaymentSystem;
+package com.elifintizam.BillPaymentSystem.service;
 
 import com.elifintizam.BillPaymentSystem.model.Bill;
 import com.elifintizam.BillPaymentSystem.repository.BillRepository;
